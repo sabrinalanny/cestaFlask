@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  title: "POC Flask REST API"
+  description: "POC Beach Park"
+  version: "1.0.0"
+
+servers:
+  - url: "/api"
+
+components:
+  schemas:
+    Pessoa:
+      type: "object"
+      required:
+        - id
+      properties:
+        nome:
+          type: "string"
+        id:
+          type: "string"
+  parameters:
+    id:
+      name: "id"
+      in: path
+      required: True
+      schema:
+        type: "string"
+
+paths:
+  /pessoa:
+    get:
+      operationId: "pessoa.read_all"
+      tags:
+        - "Pessoa"
+      responses:
+        "200":
+          description: "Sucesso"
+  /pessoa/{id}:
+    get:
+      operationId: "pessoa.read_one"
+      tags:
+        - Pessoa
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "200":
+          description: "Sucesso"    
