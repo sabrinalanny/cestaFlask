@@ -1,11 +1,11 @@
 
-import connection 
+import api.connectionPool as connectionPool 
 from flask import jsonify
 
-pool = connection.start_pool()
+connectionPool = connectionPool.start_pool()
 
 def read_all():    
-    with pool.acquire() as con:
+    with connectionPool.acquire() as con:
         with con.cursor() as cur:
             cur.arraysize = 1000
             pessoas = []
@@ -15,7 +15,7 @@ def read_all():
             return jsonify(pessoas)
 
 def read_one(id):
-    with pool.acquire() as con:
+    with connectionPool.acquire() as con:
         with con.cursor() as cursor:    
             cursor.execute("select nome from cm.pessoa p where idpessoa = :id", id)
             r = cursor.fetchone()

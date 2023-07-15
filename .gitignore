@@ -1,2 +1,7 @@
 /venv
-/flask_api/__pycache__
+/api/__pycache__
+/api/main/__pycache__
+/api/main/controller/__pycache__
+/api/main/model/__pycache__
+/api/main/service/__pycache__
+/api/main/util/__pycache__
