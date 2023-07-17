@@ -9,16 +9,16 @@ session = Session()
 
 def getAll():
     sql = select(Funcionario)
-    user_by_matricula = session.execute(sql).fetchone()
-    print(user_by_matricula)
-    return user_by_matricula
+    func_by_matricula = session.execute(sql).fetchone()
+    print(func_by_matricula)
+    return list(func_by_matricula)
 
 
 def getByMatricula(matriculaParam):
     sql = select(Funcionario) \
     .where(Funcionario.matricula == matriculaParam)
 
-    user_by_matricula = session.execute(sql).fetchone()
-    print(user_by_matricula)
-    return user_by_matricula
+    func_by_matricula = session.execute(sql).fetchone()
+    if func_by_matricula:
+        return list(func_by_matricula)  
     

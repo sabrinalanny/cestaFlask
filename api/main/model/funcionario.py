@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String
 from sqlalchemy.orm import declarative_base
-
+from flask_restx import fields
 Base = declarative_base() 
 
 class Funcionario(Base):
@@ -14,3 +14,11 @@ class Funcionario(Base):
     #    return "<Funcionario '{}'>".format(self.nome)
     def __repr__(self):
        return f"Funcionario(nome='{self.nome}', matricula='{self.matricula}')"
+   
+    def __json__(self):
+        _json = {
+            'nome': self.nome,
+            'matricula': self.matricula
+        }
+
+        return _json
