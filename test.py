@@ -5,7 +5,7 @@ import platform
 print("entrou")
 d = None  # default suitable for Linux
 if platform.system() == "Linux" and platform.machine() == "x86_64":   # macOS
-  d = os.environ.get("HOME")+("/desenvolvimento/instantclient_19_19")
+  d = ("/opt/oracle/instantclient_19_19")
 elif platform.system() == "Windows":
   d = r"C:\oracle\instantclient_19_19"
 cx_Oracle.init_oracle_client(lib_dir=d)

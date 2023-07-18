@@ -7,18 +7,17 @@ import oracledb
 import sqlalchemy as sa
 from sqlalchemy.pool import NullPool
 
-# Use your config
-un = 'cm' 
-pw = 'cm' 
-host           = 'dbclone.bpark.com.br'
-port           =  1521
-service_name   = 'desenv'
+un = 'cm' #os.getenv('DB_USER')
+pw = 'cm' #os.getenv('DB_PASSWORD')
+host = 'dbclone.bpark.com.br' #os.getenv('DB_HOST')
+port = '1521' #os.getenv('DB_PORT')
+service_name = 'desenv' #os.getenv('DB_SERVICE')
 
 d = None  # default suitable for Linux
 if platform.system() == "Linux" and platform.machine() == "x86_64":   # macOS
-  d = os.environ.get("HOME")+("/desenvolvimento/instantclient_19_19")
+  d = ("/usr/lib/instantclient")
 elif platform.system() == "Windows":
-  d = r"C:\oracle\instantclient_19_19"
+  d = r"C:\oracle\instantclient"
 oracledb.init_oracle_client(lib_dir=d)
 
 pool = oracledb.create_pool(user=un, password=pw,
