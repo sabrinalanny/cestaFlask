@@ -1,12 +1,8 @@
-import os
-import unittest
-
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 
 from api import blueprint
 from api.main import create_app
-from api.main.model import funcionario
 
 app = create_app('dev')
 app.register_blueprint(blueprint)

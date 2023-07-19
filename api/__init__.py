@@ -1,10 +1,11 @@
 from flask_restx import Api
 from flask import Blueprint
 
-from .main.controller.funcionarioController import api as funcionario_ns
-from .main.controller.cestaController import api as cesta_ns
-from .main.controller.funcionarioCestaController import api as funcionariocesta_ns
+from .main.controller.pessoaController import api as pessoa_ns
+from .main.controller.eventoController import api as evento_ns
+from .main.controller.pessoaEventoController import api as pessoaEvento_ns
 #from .main.controller.auth_controller import api as auth_ns
+from flask_sqlalchemy import SQLAlchemy
 
 blueprint = Blueprint('api', __name__)
 authorizations = {
@@ -17,14 +18,17 @@ authorizations = {
 
 api = Api(
     blueprint,
-    title='POC - Cesta BP',
+    title='POC - Entrega evento BP',
     version='1.0',
     description='POC usando python - flask',
     #authorizations=authorizations,
     #security='apikey'
 )
 
-api.add_namespace(funcionario_ns, path='/funcionario')
-api.add_namespace(cesta_ns, path='/cesta')
-api.add_namespace(funcionariocesta_ns, path='/funcionariocesta')
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sabrina:S@br1na@mesqldesenv.com.br:3306/evento'
+#db = SQLAlchemy(app)
+
+api.add_namespace(pessoa_ns, path='/pessoa')
+api.add_namespace(evento_ns, path='/evento')
+api.add_namespace(pessoaEvento_ns, path='/eventopessoa')
 #api.add_namespace(auth_ns)

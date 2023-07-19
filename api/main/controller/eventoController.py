@@ -1,34 +1,33 @@
 from flask import request, jsonify
 from flask_restx import Resource, fields
 
-from ..util.cestaDTO import CestaDTO
-from ..service.cestaService import getAll, getByNome, save, getById, delete
+from ..util.eventoDTO import EventoDTO
+from ..service.eventoService import getAll, getByNome, save, getByEventoId, delete
 
-api = CestaDTO.api
-_cesta= CestaDTO.cesta
-_resource_fields = api.model('Cesta', {
+api = EventoDTO.api
+_evento= EventoDTO.evento
+_resource_fields = api.model('Evento', {
     'nome': fields.String,
     'quantidade': fields.Integer,
 })
 
 @api.route('/')
-class CestaListAll(Resource):
-    @api.doc('lista de cestas')
-    @api.marshal_list_with(_cesta)
+class EventoListAll(Resource):
+    @api.doc('lista de eventos')
+    @api.marshal_list_with(_evento)
     def get(self):
-        cestas = getAll()
-        print(cestas)
-        return cestas, 200
+        eventos = getAll()
+        print(eventos)
+        return eventos, 200
     
     @api.expect(_resource_fields)
-    #@api.marshal_list_with(_cesta)
     def post(self):
         data = request.get_json()    
-        cesta = getByNome(data['nome'])
-        if cesta:  
+        evento = getByNome(data['nome'])
+        if evento:  
             response_object = {
                 'status': 'falha',
-                'message': 'Cesta já existe.',
+                'message': 'Evento já existe.',
             }
             return response_object, 409  
         save(data)
@@ -39,38 +38,39 @@ class CestaListAll(Resource):
         return response_object, 201  
     
 @api.route('/<nome>', methods=['GET'])
-@api.param('nome', 'Nome da cesta')
-class CestaList(Resource):
-    @api.doc('get cesta')
+@api.param('nome', 'Nome do evento')
+class EventoList(Resource):
+    @api.doc('get evento')
+    @api.marshal_list_with(_evento)
     def get(self, nome):
-        cesta = getByNome(nome)
-        if not cesta:
+        eventos = getByNome(nome)
+        if not eventos:
             response_object = {
                 'status': 'falha',
-                'message': 'Cesta não encontrada'
+                'message': 'Evento não encontrado'
             }
             return response_object, 404
         else:       
-            return cesta[0].json(), 200
+            return eventos, 200
         
 @api.route('/<id>', methods=['DELETE'])
-@api.param('id', 'Id da cesta')
-class CestaId(Resource):
-    @api.doc('delete cesta')
+@api.param('id', 'Id do evento')
+class EventoId(Resource):
+    @api.doc('delete evento')
     def delete(self, id):
-        cesta = getById(id)
-        if not cesta:
+        evento = getByEventoId(id)
+        if not evento:
             response_object = {
                 'status': 'falha',
-                'message': 'Cesta não encontrada'
+                'message': 'Evento não encontrado'
             }
             return response_object, 404
         else:     
-            print(cesta)
-            delete(cesta[0])  
+            print(evento)
+            delete(evento[0])  
             response_object = {
                 'status': 'sucesso',
-                'message': 'Cesta deletada'
+                'message': 'Evento deletado'
             }
             return response_object, 200
     

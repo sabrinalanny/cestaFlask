@@ -1,16 +1,17 @@
 from flask import Flask 
-import connexion 
 from flask import render_template
+#from flask_sqlalchemy import SQLAlchemy
 
-#app = connexion.App(__name__, specification_dir="./")
-app = Flask(__name__)
-#app.add_api("swagger.yml")
+def create_app():
+    app = Flask(__name__)
+    #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sabrina:S@br1na@mesqldesenv.com.br:3306/evento'
+    #db = SQLAlchemy(app)
 
-@app.route("/")
-def home():
-    return render_template("home.html")
+    #db.init_app(app)
+    return app
 
-if __name__ == "__main__":    
+if __name__ == "__main__":  
+    app = create_app()  
     app.run(debug = True)
     #app.run(host="0.0.0.0", port=8000, debug=True)    
   
