@@ -5,16 +5,17 @@ from .main.controller.pessoaController import api as pessoa_ns
 from .main.controller.eventoController import api as evento_ns
 from .main.controller.pessoaEventoController import api as pessoaEvento_ns
 #from .main.controller.auth_controller import api as auth_ns
-from flask_sqlalchemy import SQLAlchemy
+#from flask_sqlalchemy import SQLAlchemy
 
-blueprint = Blueprint('api', __name__)
-authorizations = {
-    'apikey': {
-        'type': 'apiKey',
-        'in': 'header',
-        'name': 'Authorization'
-    }
-}
+
+blueprint = Blueprint('api', __name__, url_prefix='/eventoapi')
+#authorizations = {
+#    'apikey': {
+#        'type': 'apiKey',
+#        'in': 'header',
+#        'name': 'Authorization'
+#    }
+#}
 
 api = Api(
     blueprint,
@@ -24,9 +25,12 @@ api = Api(
     #authorizations=authorizations,
     #security='apikey'
 )
-
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sabrina:S@br1na@mesqldesenv.com.br:3306/evento'
-#db = SQLAlchemy(app)
+api.default_namespace = api.namespace("default", "default_label",
+            endpoint='{0}-declaration'.format("default"),
+            validate="validate",
+            api=api,
+            path='/eventoapi',
+        )
 
 api.add_namespace(pessoa_ns, path='/pessoa')
 api.add_namespace(evento_ns, path='/evento')

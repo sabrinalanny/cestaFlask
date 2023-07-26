@@ -6,7 +6,7 @@ from api.main import db
 class Evento(db.Model):
     
     __tablename__ = 'evento'
-    __table_args__ = {'schema' : 'evento'}
+    #__table_args__ = {'schema' : 'evento'}
     
     idevento = db.Column(Integer, primary_key=True)
     nome = db.Column(String(150), name='nome')

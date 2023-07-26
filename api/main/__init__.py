@@ -33,7 +33,7 @@ db = SQLAlchemy()
 def create_app(config_name: str) -> Flask:
     app = Flask(__name__)
     #app.config.from_object(config_by_name[config_name])
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sabrina:S%40br1na@mysqldesenv.bpark.com.br/evento'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://<user>:<password>@mysqldesenv.bpark.com.br/evento'
     db.init_app(app)
 
     return app
